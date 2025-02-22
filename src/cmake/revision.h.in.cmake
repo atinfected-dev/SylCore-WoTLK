@@ -11,7 +11,7 @@
  #define _BUILD_DIRECTORY           R"(@BUILDDIR@)"
  #define _MYSQL_EXECUTABLE          R"(@MYSQL_EXECUTABLE@)"
  #define VER_COMPANYNAME_STR        "SylCore"
- #define VER_LEGALCOPYRIGHT_STR     "(c)2025 SylCore"
+ #define VER_LEGALCOPYRIGHT_STR     "(c)2016-2025 AzerothCore & (c)2025 SylCore"
  #define VER_FILEVERSION            0,0,0
  #define VER_FILEVERSION_STR        "@rev_hash@ @rev_date@ (@rev_branch@ branch)"
  #define VER_PRODUCTVERSION         VER_FILEVERSION

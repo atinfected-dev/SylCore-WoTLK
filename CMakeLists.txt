@@ -1,5 +1,9 @@
 #
-# This file is part of the SylCore Project. See AUTHORS file for Copyright information
+# This file is part of the SylCore Project, originally based on AzerothCore.
+# See AUTHORS file for copyright information.
+#
+# Copyright (C) 2016-2025 AzerothCore <www.azerothcore.org>
+# Copyright (C) 2025 SylCore 
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
