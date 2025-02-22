@@ -1,5 +1,5 @@
 #
-# This file is part of the AzerothCore Project. See AUTHORS file for Copyright information
+# This file is part of the SylCore Project. See AUTHORS file for Copyright information
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
@@ -23,7 +23,7 @@ if (POLICY CMP0153)
 endif()
 
 # Set projectname (must be done AFTER setting configurationtypes)
-project(AzerothCore VERSION 3.0.0 LANGUAGES CXX C)
+project(SylCore VERSION 3.0.0 LANGUAGES CXX C)
 
 # add this options before PROJECT keyword
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)

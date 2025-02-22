@@ -77,7 +77,7 @@ foreach(SOURCE_MODULE ${MODULES_MODULE_LIST})
   endif()
 
   # Use only static for SylCore_Eluna
-  if (SOURCE_MODULE MATCHES "SylCore_Eluna")
+  if (SOURCE_MODULE MATCHES "sylcore-eluna-mod")
     ConfigureElunaModule(${SOURCE_MODULE})
   endif()
 
