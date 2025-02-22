@@ -1,5 +1,5 @@
 #
-# This file is part of the AzerothCore Project. See AUTHORS file for Copyright information
+# This file is part of the SylCore Project. See AUTHORS file for Copyright information
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
@@ -76,8 +76,8 @@ foreach(SOURCE_MODULE ${MODULES_MODULE_LIST})
     set(${MODULE_MODULE_VARIABLE} "static")
   endif()
 
-  # Use only static for mod-eluna
-  if (SOURCE_MODULE MATCHES "mod-eluna")
+  # Use only static for SylCore_Eluna
+  if (SOURCE_MODULE MATCHES "SylCore_Eluna")
     ConfigureElunaModule(${SOURCE_MODULE})
   endif()
 
