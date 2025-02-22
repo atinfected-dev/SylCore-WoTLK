@@ -1259,6 +1259,21 @@ void World::LoadConfigSettings(bool reload)
 
     _int_configs[CONFIG_SUNSREACH_COUNTER_MAX] = sConfigMgr->GetOption<uint32>("Sunsreach.CounterMax", 10000);
 
+
+    // Loading of the dynamic glyph system configs.
+    // Loads the enabled setting from the config, by default, its false.
+    _bool_configs[CONFIG_GLYPH_DYNAMIC_UNLOCK_ENABLED] = sConfigMgr->GetOption<bool>("Glyph.EnableDynamicUnlocks", false);
+
+    // Loads all the Major glyph unlock settings.
+    _int_configs[CONFIG_GLYPH_DYNAMIC_UNLOCK_MAJOR_1] = sConfigMgr->GetOption<uint32>("Glyph.MajorUnlockLevel1", 15);
+    _int_configs[CONFIG_GLYPH_DYNAMIC_UNLOCK_MAJOR_2] = sConfigMgr->GetOption<uint32>("Glyph.MajorUnlockLevel2", 30);
+    _int_configs[CONFIG_GLYPH_DYNAMIC_UNLOCK_MAJOR_3] = sConfigMgr->GetOption<uint32>("Glyph.MajorUnlockLevel3", 80);
+
+    // Loads all the Minor glyph unlock settings.
+    _int_configs[CONFIG_GLYPH_DYNAMIC_UNLOCK_MINOR_1] = sConfigMgr->GetOption<uint32>("Glyph.MinorUnlockLevel1", 15);
+    _int_configs[CONFIG_GLYPH_DYNAMIC_UNLOCK_MINOR_2] = sConfigMgr->GetOption<uint32>("Glyph.MinorUnlockLevel2", 50);
+    _int_configs[CONFIG_GLYPH_DYNAMIC_UNLOCK_MINOR_3] = sConfigMgr->GetOption<uint32>("Glyph.MinorUnlockLevel3", 70);
+
     // call ScriptMgr if we're reloading the configuration
     sScriptMgr->OnAfterConfigLoad(reload);
 }

@@ -13354,17 +13354,46 @@ void Player::InitGlyphsForLevel()
     uint8 level = GetLevel();
     uint32 value = 0;
 
-    // 0x3F = 0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x20 for 80 level
-    if (level >= 15)
-        value |= (0x01 | 0x02);
-    if (level >= 30)
-        value |= 0x08;
-    if (level >= 50)
-        value |= 0x04;
-    if (level >= 70)
-        value |= 0x10;
-    if (level >= 80)
-        value |= 0x20;
+    // Total is = 0x3F is total for up to level 80
+    // 0x01 = Major Glyph 1 -- CORRECT
+    // 0x02 = Minor Glyph 1 -- CORRECT
+
+    // 0x08 = Major Glyph 2 -- CORRECT
+    // 0x04 = Minor Glyph 2 -- CORRECT
+
+    // 0x20 = Major Glyph 3 -- CORRECT
+    // 0x10 = Minor Glyph 3 -- CORRECT
+
+    // If the feature is disabled, do it the "Blizz-like" style.
+    if (!sWorld->getBoolConfig(CONFIG_GLYPH_DYNAMIC_UNLOCK_ENABLED)) {
+
+        // This is the default core code, will be used if the "CONFIG_GLYPH_DYNAMIC_UNLOCK_ENABLED" boolean is set to "false"
+        if (level >= 15)
+            value |= (0x01 | 0x02);
+        if (level >= 30)
+            value |= 0x08;
+        if (level >= 50)
+            value |= 0x04;
+        if (level >= 70)
+            value |= 0x10;
+        if (level >= 80)
+            value |= 0x20;
+    }else {
+
+        // This code will run if the glyph dynamic system setting "CONFIG_GLYPH_DYNAMIC_UNLOCK_ENABLED" is set to "True"
+        if (level >= sWorld->getIntConfig(CONFIG_GLYPH_DYNAMIC_UNLOCK_MAJOR_1))
+            value |= (0x01);
+        if (level >= sWorld->getIntConfig(CONFIG_GLYPH_DYNAMIC_UNLOCK_MINOR_1))
+            value |= (0x02);
+        if (level >= sWorld->getIntConfig(CONFIG_GLYPH_DYNAMIC_UNLOCK_MAJOR_2))
+            value |= 0x08;
+        if (level >= sWorld->getIntConfig(CONFIG_GLYPH_DYNAMIC_UNLOCK_MINOR_2))
+            value |= 0x04;
+        if (level >= sWorld->getIntConfig(CONFIG_GLYPH_DYNAMIC_UNLOCK_MINOR_3))
+            value |= 0x10;
+        if (level >= sWorld->getIntConfig(CONFIG_GLYPH_DYNAMIC_UNLOCK_MAJOR_3))
+            value |= 0x20;
+    }
 
     SetUInt32Value(PLAYER_GLYPHS_ENABLED, value);
 }

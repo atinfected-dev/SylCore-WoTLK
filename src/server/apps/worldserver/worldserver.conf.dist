@@ -34,6 +34,7 @@
 #    CHARACTER DELETE
 #    CHARACTER CREATION
 #    CHARACTER
+#    GLYPH
 #    SKILL
 #    STATS
 #    REPUTATION
@@ -4503,6 +4504,62 @@ Respawn.DynamicMinimumGameObject = 10
 #
 ###################################################################################################
 
+###################################################################################################
+# GLYPH
+
+#
+#    EnableDynamicUnlocks
+#        Description: Enables the ability to customize when the player unlocks their glyph slots.
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
+
+Glyph.EnableDynamicUnlocks = 1
+
+#
+#    Glyph.MajorUnlockLevel1
+#        Description: Set the level for unlocking the first Major glyph slot.
+#        Default:     15
+
+Glyph.MajorUnlockLevel1 = 15
+
+#
+#    Glyph.MajorUnlockLevel2
+#        Description: Set the level for unlocking the second Major glyph slot.
+#        Default:     30
+
+Glyph.MajorUnlockLevel2 = 30
+
+#
+#    Glyph.MajorUnlockLevel3
+#        Description: Set the level for unlocking the third Major glyph slot.
+#        Default:     80
+
+Glyph.MajorUnlockLevel3 = 80
+
+###################################################################################################
+
+#
+#    Glyph.MinorUnlockLevel1
+#        Description: Set the level for unlocking the first minor glyph slot.
+#        Default:     15
+
+Glyph.MinorUnlockLevel1 = 15
+
+#
+#    Glyph.MinorUnlockLevel2
+#        Description: Set the level for unlocking the second minor glyph slot.
+#        Default:     50
+
+Glyph.MinorUnlockLevel2 = 50
+
+#
+#    Glyph.MinorUnlockLevel3
+#        Description: Set the level for unlocking the third minor glyph slot.
+#        Default:     70
+
+Glyph.MinorUnlockLevel3 = 70
+
+#
 ###################################################################################################
 #                                                                                                 #
 # GAME SETTINGS END                                                                               #
