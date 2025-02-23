@@ -1,0 +1,5 @@
+-- DB update 2025_02_16_00 -> 2025_02_23_00
+--
+ALTER TABLE `gm_survey`
+	CHANGE COLUMN `maxMMR` `maxMMR` SMALLINT NOT NULL DEFAULT '0' AFTER `createTime`;
+

@@ -1,5 +1,8 @@
 /*
- * This file is part of the AzerothCore Project. See AUTHORS file for Copyright information
+ * This file is part of the SylCore Project. See AUTHORS file for Copyright information
+ *
+ * Copyright (C) 2016-2025 AzerothCore <www.azerothcore.org>
+ * Copyright (C) 2025 SylCore 
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
@@ -217,9 +220,12 @@ public:
             return true;
         }
 
+        // This code crashed the server because of an "ACCESS_VIOLATION", since the response was nullptr, and would always be a nullptr, since the command doesn't accept a response value.
+        /*
         char* response = strtok(nullptr, "\n");
         if (response)
             ticket->AppendResponse(response);
+        */
 
         if (Player* player2 = ticket->GetPlayer())
         {
