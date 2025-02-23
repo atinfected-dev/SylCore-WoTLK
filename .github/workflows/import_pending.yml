@@ -10,7 +10,7 @@ jobs:
       fail-fast: false
     runs-on: ubuntu-24.04
     permissions: write-all
-    if: github.repository == 'azerothcore/azerothcore-wotlk' && !github.event.pull_request.draft
+    if: github.repository == 'SylCore/SylCore-WoTLK' && !github.event.pull_request.draft
     steps:
       - uses: actions/checkout@v4
         with:
@@ -43,7 +43,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.AC_GITHUB_TOKEN }}
+          github_token: ${{ secrets.SC_GITHUB_TOKEN }}
           # Noting that the branch name can only be master, as per the event
           # triggering this action
           branch: ${{ github.ref_name }}
