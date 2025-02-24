@@ -177,6 +177,7 @@ foreach(APPLICATION_NAME ${APPLICATIONS_BUILD_LIST})
 
   # Install config
   CopyApplicationConfig(${APP_PROJECT_NAME} ${APPLICATION_NAME})
+  
 
   if (UNIX)
     install(TARGETS ${APP_PROJECT_NAME} DESTINATION bin)

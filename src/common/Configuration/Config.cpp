@@ -1,6 +1,11 @@
 /*
- * This file is part of the AzerothCore Project. See AUTHORS file for Copyright information
+ * This file is part of the SylCore Project, originally based on AzerothCore.
  *
+ *
+ * Copyright (C) 2016-2025 AzerothCore <www.azerothcore.org>
+ * Copyright (C) 2025 SylCore
+ *
+ * 
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
  * Free Software Foundation; either version 3 of the License, or (at your
@@ -49,8 +54,10 @@ namespace
         std::size_t foundAuth = fileName.find("authserver.conf");
         std::size_t foundWorld = fileName.find("worldserver.conf");
         std::size_t foundImport = fileName.find("dbimport.conf");
+        std::size_t foundGame = fileName.find("gameplay.conf");
 
-        return foundAuth != std::string_view::npos || foundWorld != std::string_view::npos || foundImport != std::string_view::npos;
+
+        return foundAuth != std::string_view::npos || foundWorld != std::string_view::npos || foundImport != std::string_view::npos || foundGame != std::string_view::npos;
     }
 
     // Check logging system configs like Appender.* and Logger.*
@@ -566,9 +573,19 @@ bool ConfigMgr::LoadAppConfigs(bool isReload /*= false*/)
     // #1 - Load init config file .conf
     if (!LoadInitial(_filename, isReload))
     {
+       
         return false;
     }
 
+    // SylCore Implementation
+    // #2 - Loading custom (gameplay.conf)
+    if (!LoadAdditionalFile(GetConfigPath() + "gameplay.conf", false, isReload)) {
+        LOG_FATAL("server.loading", "> Failed to find 'gameplay.conf', please make sure you removed the '.dist' from the file!");
+        ABORT();
+    }
+    
+
+    //LoadAdditionalFile(GetConfigPath() + "gameplay.conf", false, isReload);
     return true;
 }
 

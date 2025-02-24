@@ -1,5 +1,9 @@
 /*
- * This file is part of the AzerothCore Project. See AUTHORS file for Copyright information
+ * This file is part of the SylCore Project, originally based on AzerothCore.
+ *
+ *
+ * Copyright (C) 2016-2025 AzerothCore <www.azerothcore.org>
+ * Copyright (C) 2025 SylCore
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
@@ -182,6 +186,7 @@ enum WorldBoolConfigs
     CONFIG_ENABLE_DAZE,
     CONFIG_SPELL_QUEUE_ENABLED,
     CONFIG_GLYPH_DYNAMIC_UNLOCK_ENABLED,
+    CONFIG_SYLCORE_MOTD_DISCLAIMER_ENABLED,
     BOOL_CONFIG_VALUE_COUNT
 };
 

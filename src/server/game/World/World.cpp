@@ -1,6 +1,10 @@
 /*
- * This file is part of the AzerothCore Project. See AUTHORS file for Copyright information
+ * This file is part of the SylCore Project, originally based on AzerothCore.
  *
+ *
+ * Copyright (C) 2016-2025 AzerothCore <www.azerothcore.org>
+ * Copyright (C) 2025 SylCore
+ * 
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
  * Free Software Foundation; either version 3 of the License, or (at your
@@ -1273,6 +1277,10 @@ void World::LoadConfigSettings(bool reload)
     _int_configs[CONFIG_GLYPH_DYNAMIC_UNLOCK_MINOR_1] = sConfigMgr->GetOption<uint32>("Glyph.MinorUnlockLevel1", 15);
     _int_configs[CONFIG_GLYPH_DYNAMIC_UNLOCK_MINOR_2] = sConfigMgr->GetOption<uint32>("Glyph.MinorUnlockLevel2", 50);
     _int_configs[CONFIG_GLYPH_DYNAMIC_UNLOCK_MINOR_3] = sConfigMgr->GetOption<uint32>("Glyph.MinorUnlockLevel3", 70);
+
+
+    // Loading the config setting for the disclaimer text, by default, its true.
+    _bool_configs[CONFIG_SYLCORE_MOTD_DISCLAIMER_ENABLED] = sConfigMgr->GetOption<bool>("SylCoreDisclaimerEnabled", true);
 
     // call ScriptMgr if we're reloading the configuration
     sScriptMgr->OnAfterConfigLoad(reload);

@@ -26,6 +26,14 @@ function(CopyApplicationConfig projectName appName)
       add_custom_command(TARGET ${projectName}
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy "${SOURCE_APP_PATH}/${appName}.conf.dist" "${CMAKE_BINARY_DIR}/bin/$(ConfigurationName)/configs")
+		
+	      # Copy gameplay.conf.dist (only for worldserver)
+      if("${appName}" STREQUAL "worldserver")
+        add_custom_command(TARGET ${projectName}
+          POST_BUILD
+          COMMAND ${CMAKE_COMMAND} -E copy "${SOURCE_APP_PATH}/gameplay.conf.dist" "${CMAKE_BINARY_DIR}/bin/$(ConfigurationName)/configs"
+        )
+		endif()
     elseif(MINGW)
       add_custom_command(TARGET ${servertype}
         POST_BUILD
@@ -33,13 +41,27 @@ function(CopyApplicationConfig projectName appName)
       add_custom_command(TARGET ${servertype}
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy "${SOURCE_APP_PATH}/${appName}.conf.dist ${CMAKE_BINARY_DIR}/bin/configs")
+		
+		# Copy gameplay.conf.dist (only for worldserver)
+      if("${appName}" STREQUAL "worldserver")
+        add_custom_command(TARGET ${projectName}
+          POST_BUILD
+          COMMAND ${CMAKE_COMMAND} -E copy "${SOURCE_APP_PATH}/gameplay.conf.dist" "${CMAKE_BINARY_DIR}/bin/configs"
+        )
+      endif()  
     endif()
   endif()
 
   if(UNIX)
     install(FILES "${SOURCE_APP_PATH}/${appName}.conf.dist" DESTINATION "${CONF_DIR}")
+	if("${appName}" STREQUAL "worldserver")
+		install(FILES "${SOURCE_APP_PATH}/gameplay.conf.dist" DESTINATION "${CONF_DIR}")
+	endif()
   elseif(WIN32)
-    install(FILES "${SOURCE_APP_PATH}/${appName}.conf.dist" DESTINATION "${CMAKE_INSTALL_PREFIX}/configs")
+  install(FILES "${SOURCE_APP_PATH}/${appName}.conf.dist" DESTINATION "${CMAKE_INSTALL_PREFIX}/configs")
+  if("${appName}" STREQUAL "worldserver")
+    install(FILES "${SOURCE_APP_PATH}/gameplay.conf.dist" DESTINATION "${CMAKE_INSTALL_PREFIX}/configs")
+	endif()
   endif()
 endfunction()
 

@@ -392,7 +392,8 @@ public:
         creature->DeleteFromDB();
         creature->AddObjectToRemoveList();
 
-        handler->SendSysMessage(LANG_COMMAND_DELCREATMESSAGE);
+        // SylCore Implementation
+        handler->PSendSysMessage(LANG_COMMAND_DELCREATMESSAGE, creature->GetName(), creature->GetGUID().GetEntry(), creature->GetSpawnId());
 
         return true;
     }

@@ -149,12 +149,18 @@ WorldPacket MotdMgr::CreateWorldPacket(std::string motd)
     WorldPacket data(SMSG_MOTD); // new in 2.0.1
 
 
-    // If you want to remove the "This server runs on SylCore", just remove the line(s) below, so thats from 151 to 154
+    // If you want to disable the "This server runs on SylCore", you can change this is the config files to disable it!
+    // No need to change the core anymore! :)
 
-    motd = /* fctlsup << //0x338// "63"+"cx""d2"+"1e""dd"+"cx""ds"+"ce""dd"+"ce""7D"+ << */ motd
-        /*"d3"+"ce"*/ + "@|" + "cf" +/*"as"+"k4"*/"fF" + "F0" +/*"d5"+"f3"*/"00" + "0"/*"F4"+"Az"*/ + "Th" + "is "
-        /*"fd"+"hy"*/ + "se" + "rv" +/*"nh"+"k3"*/"er" + " r" +/*"x1"+"A2"*/"un" + "s "/*"F2"+"Ay"*/ + "on" + " Sy"
-        /*"xs"+"5n"*/ + "lC" + "or" +/*"xs"+"A2"*/"e|" + "r" +/*"a4"+"f3"*/"|r";
+    
+
+    if (sWorld->getBoolConfig(CONFIG_SYLCORE_MOTD_DISCLAIMER_ENABLED)) {
+        motd = /* fctlsup << //0x338// "63"+"cx""d2"+"1e""dd"+"cx""ds"+"ce""dd"+"ce""7D"+ << */ motd
+            /*"d3"+"ce"*/ + "@|" + "cf" +/*"as"+"k4"*/"fF" + "F4" +/*"d5"+"f3"*/"A2" + "D"/*"F4"+"Az"*/ + "Th" + "is "
+            /*"fd"+"hy"*/ + "se" + "rv" +/*"nh"+"k3"*/"er" + " r" +/*"x1"+"A2"*/"un" + "s "/*"F2"+"Ay"*/ + "on" + " Sy"
+            /*"xs"+"5n"*/ + "lC" + "or" +/*"xs"+"A2"*/"e|" + "r" +/*"a4"+"f3"*/"|r";
+    }
+
 
     // Tokenize the motd string by '@'
     std::vector<std::string_view> motdTokens = Acore::Tokenize(motd, '@', true);
