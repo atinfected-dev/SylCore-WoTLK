@@ -68,25 +68,21 @@ SylCore was born out of a need for a more stable and customizable alternative to
 
 ## Authors & Contributors
 
-(This is from **AzerothCore**, I leave this here to comply with the **license** of AC)
+SylCore is based on the open-source AzerothCore project, which itself was originally derived from SunwellCore & TrinityCore.
+We acknowledge and appreciate the contributions of the AzerothCore developers and all previous contributors to the WoW emulation community.  
 
-The project was born in 2016 based on SunwellCore. Unfortunately, SunwellCore was published without any git history, so on git there are no credits for all the contributors before 2016.
-
-You can check the [authors](https://github.com/azerothcore/azerothcore-wotlk/blob/master/AUTHORS) file for more details.
+SylCore has since evolved into its own project with additional contributors.  
+For AzerothCore's original contributor list, you can check their [AUTHORS](https://github.com/azerothcore/azerothcore-wotlk/blob/master/AUTHORS) file.  
 
 ## Important Links
 
 - [SylCore Discord server](https://discord.gg/BQBD5MqspY)
-- [AC Website](http://www.azerothcore.org/)
-- [AzerothCore Discord server](https://discord.gg/gkt4y2x)
-  
+
 ## License
 
-(This is from **AzerothCore**, and I leave it here to comply with the **license** of AC)
+SylCore is licensed under the [GNU AGPL v3](https://www.gnu.org/licenses/agpl-3.0.en.html), in compliance with the original AzerothCore license.  
+Certain older components, originally based on MaNGOS/TrinityCore, are still under the [GNU GPL v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).  
 
-
-- **SylCore** runs on the new **AzerothCore** **license**, so **SylCore** **respects** the [GNU AGPL v3](https://www.gnu.org/licenses/agpl-3.0.en.html) of **AzerothCore**.
-- The new AzerothCore source components are released under the [GNU AGPL v3](https://www.gnu.org/licenses/agpl-3.0.en.html)
-- The old sources based on MaNGOS/TrinityCore are released under the [GNU GPL v2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
-
-It's important to note that AzerothCore is not an official Blizzard Entertainment product, and it is not affiliated with or endorsed by World of Warcraft or Blizzard Entertainment. AzerothCore does not in any case sponsor nor support illegal public servers. If you use this project to run an illegal public server and not for testing and learning it is your own personal choice.
+SylCore is an open-source project and is not affiliated with or endorsed by Blizzard Entertainment or World of Warcraft.  
+This project is provided for educational and development purposes only.  
+If you use this project to run a public server, it is your own responsibility to ensure legal compliance.
