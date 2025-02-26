@@ -371,6 +371,12 @@ std::size_t ChatHandler::BuildChatPacket(WorldPacket& data, ChatMsg chatType, La
     return BuildChatPacket(data, chatType, language, senderGUID, receiverGUID, message, chatTag, senderName, receiverName, achievementId, gmMessage, channelName);
 }
 
+/// <summary>
+/// For some reason, AC devs made it so this also returns the local player if no target is selected.
+/// Gotta go into this and re-work, but way too many things rely on this, so I will keep this here as a reminder to fix this function.
+/// </summary>
+/// <returns>
+/// </returns>
 Player* ChatHandler::getSelectedPlayer() const
 {
     if (!m_session)

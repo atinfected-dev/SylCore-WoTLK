@@ -235,16 +235,19 @@ public:
 
     static bool HandleResetTalentsCommand(ChatHandler* handler, Optional<PlayerIdentifier> target)
     {
+        // Create a empty player pointer object.
         Player* targetPlayer = nullptr;
 
+        // Check if the command had a character name.
         if (target)
         {
+            // Set target player to the player whos name was sent with the command.
             targetPlayer = target->GetConnectedPlayer();
         }
         else
         {
-            handler->SendErrorMessage(LANG_NO_CHAR_SELECTED);
-            return false;
+            // Gets the command senders target, if nothing or non-player is targeted, will run the command on self.
+            targetPlayer = handler->getSelectedPlayerOrSelf();
         }
 
         if (targetPlayer)

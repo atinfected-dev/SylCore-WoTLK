@@ -33,7 +33,7 @@
 #include <readline/readline.h>
 #endif
 
-static constexpr char CLI_PREFIX[] = "AC> ";
+static constexpr char CLI_PREFIX[] = "SC> ";
 
 static inline void PrintCliPrefix()
 {
