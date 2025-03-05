@@ -1,6 +1,9 @@
 /*
- * This file is part of the AzerothCore Project. See AUTHORS file for Copyright information
+ * This file is part of the SylCore Project. See AUTHORS file for Copyright information
  *
+ * Copyright (C) 2016-2025 AzerothCore <www.azerothcore.org>
+ * Copyright (C) 2025 SylCore
+ * 
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
  * Free Software Foundation; either version 3 of the License, or (at your
@@ -740,18 +743,71 @@ void WorldSession::HandleMirrorImageDataRequest(WorldPacket& recvData)
     ObjectGuid guid;
     recvData >> guid;
 
+    LOG_INFO("network", "Received mirror image data request for GUID {}", guid.ToString());
+
     // Get unit for which data is needed by client
     Unit* unit = ObjectAccessor::GetUnit(*_player, guid);
     if (!unit)
+    {
+        LOG_ERROR("network", "Unit not found for GUID {}", guid.ToString());
         return;
+    }
 
-    if (!unit->HasCloneCasterAura())
+    LOG_INFO("network", "Unit found for GUID {}", guid.ToString());
+
+    if (unit->GetTypeId() == TYPEID_UNIT) // Handle regular NPCs
+    {
+        CreatureOutfitContainer const& outfits = sObjectMgr->GetNPCOutfitMap();
+        CreatureOutfitContainer::const_iterator it = outfits.find(unit->GetEntry());
+        if (it != outfits.end())
+        {
+            LOG_INFO("network", "Outfit found for creature entry {}", unit->GetEntry());
+
+            WorldPacket data(SMSG_MIRRORIMAGE_DATA, 68); // Corrected to use SMSG_MIRRORIMAGE_DATA
+            data << guid;
+            data << uint32(unit->GetNativeDisplayId()); // displayId
+            data << uint8(it->second.race);             // race
+            data << uint8(it->second.gender);           // gender
+            data << uint8(unit->GetClass());            // class
+            data << uint8(it->second.skin);             // skin
+            data << uint8(it->second.face);             // face
+            data << uint8(it->second.hair);             // hair
+            data << uint8(it->second.haircolor);        // haircolor
+            data << uint8(it->second.facialhair);       // facialhair
+            data << uint32(0);                          // guildId
+
+            LOG_INFO("network", "Prepared data for NPC outfit packet");
+
+            for (uint8 i = 0; i != MAX_CREATURE_OUTFIT_DISPLAYS; ++i)
+            {
+                data << uint32(it->second.outfit[i]);
+                //LOG_INFO("network", "Outfit slot {}: displayId {}", i, it->second.outfit[i]);
+            }
+
+            SendPacket(&data);
+            LOG_INFO("network", "Sent NPC outfit data for GUID {}", guid.ToString());
+            return;
+        }
+        else
+        {
+            LOG_ERROR("network", "No outfit found for creature entry {}", unit->GetEntry());
+        }
+    }
+
+    if (!unit->HasAuraType(SPELL_AURA_CLONE_CASTER))
+    {
+        LOG_ERROR("network", "Unit does not have SPELL_AURA_CLONE_CASTER for GUID {}", guid.ToString());
         return;
+    }
 
-    // Get creator of the unit (SPELL_AURA_CLONE_CASTER does not stack)
     Unit* creator = unit->GetAuraEffectsByType(SPELL_AURA_CLONE_CASTER).front()->GetCaster();
     if (!creator)
+    {
+        LOG_ERROR("network", "Creator not found for SPELL_AURA_CLONE_CASTER for GUID {}", guid.ToString());
         return;
+    }
+
+    LOG_INFO("network", "Creator found for SPELL_AURA_CLONE_CASTER: GUID {}", creator->GetGUID().ToString());
 
     WorldPacket data(SMSG_MIRRORIMAGE_DATA, 68);
     data << guid;
@@ -770,6 +826,8 @@ void WorldSession::HandleMirrorImageDataRequest(WorldPacket& recvData)
         data << uint8(player->GetByteValue(PLAYER_BYTES_2, 0)); // facialhair
         data << uint32(player->GetGuildId());                   // unk
 
+        LOG_INFO("network", "Player data: race {}, gender {}, class {}", player->getRace(), player->getGender(), player->getClass());
+
         static EquipmentSlots const itemSlots[] =
         {
             EQUIPMENT_SLOT_HEAD,
@@ -786,7 +844,6 @@ void WorldSession::HandleMirrorImageDataRequest(WorldPacket& recvData)
             EQUIPMENT_SLOT_END
         };
 
-        // Display items in visible slots
         for (EquipmentSlots const* itr = &itemSlots[0]; *itr != EQUIPMENT_SLOT_END; ++itr)
         {
             if (*itr == EQUIPMENT_SLOT_HEAD && player->HasPlayerFlag(PLAYER_FLAGS_HIDE_HELM))
@@ -800,14 +857,16 @@ void WorldSession::HandleMirrorImageDataRequest(WorldPacket& recvData)
                 sScriptMgr->OnGlobalMirrorImageDisplayItem(item, displayInfoId);
 
                 data << uint32(displayInfoId);
+                LOG_INFO("network", "Item slot {}: displayId {}", *itr, displayInfoId);
             }
             else
+            {
                 data << uint32(0);
+            }
         }
     }
     else
     {
-        // Skip player data for creatures
         data << uint8(0);
         data << uint32(0);
         data << uint32(0);
@@ -825,6 +884,7 @@ void WorldSession::HandleMirrorImageDataRequest(WorldPacket& recvData)
     }
 
     SendPacket(&data);
+    LOG_INFO("network", "Sent mirror image data for GUID {}", guid.ToString());
 }
 
 void WorldSession::HandleUpdateProjectilePosition(WorldPacket& recvPacket)

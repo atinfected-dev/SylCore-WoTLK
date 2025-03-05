@@ -1,5 +1,5 @@
 /*
- * This file is part of the SylCore Project, originally based on AzerothCore.
+ * This file is part of the SylCore Project, See AUTHORS file for Copyright information
  *
  *
  * Copyright (C) 2016-2025 AzerothCore <www.azerothcore.org>
@@ -1689,6 +1689,9 @@ void World::SetInitialWorldSettings()
 
     // Loot tables
     LoadLootTables();
+
+    LOG_INFO("server.loading", "Load NPC Outfits...");
+    sObjectMgr->LoadNPCOutfits();
 
     LOG_INFO("server.loading", "Loading Skill Discovery Table...");
     LoadSkillDiscoveryTable();

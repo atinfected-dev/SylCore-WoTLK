@@ -1,6 +1,9 @@
 /*
- * This file is part of the AzerothCore Project. See AUTHORS file for Copyright information
+ * This file is part of the SylCore Project. See AUTHORS file for Copyright information
  *
+ * Copyright (C) 2016-2025 AzerothCore <www.azerothcore.org>
+ * Copyright (C) 2025 SylCore
+ * 
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
  * Free Software Foundation; either version 3 of the License, or (at your
@@ -140,6 +143,23 @@ struct GameTele
 };
 
 typedef std::unordered_map<uint32, GameTele > GameTeleContainer;
+
+// Struct for the Dress NPC implementation.
+#define MAX_CREATURE_OUTFIT_DISPLAYS 11
+struct CreatureOutfit
+{
+    uint8 race;
+    uint8 gender;
+    uint8 face;
+    uint8 skin;
+    uint8 hair;
+    uint8 facialhair;
+    uint8 haircolor;
+    uint32 outfit[MAX_CREATURE_OUTFIT_DISPLAYS];
+};
+
+// Unordered map for CreatureOutfitContainer.
+typedef std::unordered_map<uint32, CreatureOutfit > CreatureOutfitContainer;
 
 enum ScriptsType
 {
@@ -1101,6 +1121,8 @@ public:
     void LoadTrainerSpell();
     void AddSpellToTrainer(uint32 entry, uint32 spell, uint32 spellCost, uint32 reqSkill, uint32 reqSkillValue, uint32 reqLevel, uint32 reqSpell);
 
+    void LoadNPCOutfits();
+
     std::string GeneratePetName(uint32 entry);
     std::string GeneratePetNameLocale(uint32 entry, LocaleConstant locale);
     uint32 GetBaseXP(uint8 level);
@@ -1358,6 +1380,9 @@ public:
     bool AddGameTele(GameTele& data);
     bool DeleteGameTele(std::string_view name);
 
+    CreatureOutfitContainer const& GetCreatureOutfitMap() const { return _creatureOutfitStore; }
+    CreatureOutfitContainer const& GetNPCOutfitMap() const { return _npcOutfitStore; }
+
     [[nodiscard]] TrainerSpellData const* GetNpcTrainerSpells(uint32 entry) const
     {
         CacheTrainerSpellContainer::const_iterator  iter = _cacheTrainerSpellStore.find(entry);
@@ -1534,6 +1559,10 @@ private:
 
     CreatureSparringContainer _creatureSparringStore;
 
+    // Dress NPC SylCore Implementation.
+    CreatureOutfitContainer _creatureOutfitStore;
+    CreatureOutfitContainer _npcOutfitStore; // Existing for NPC bot outfits
+
 private:
     void LoadScripts(ScriptsType type);
     void LoadQuestRelationsHelper(QuestRelations& map, std::string const& table, bool starter, bool go);
@@ -1577,6 +1606,7 @@ private:
     CellObjectGuids _emptyCellObjectGuids;
     CreatureDataContainer _creatureDataStore;
     CreatureTemplateContainer _creatureTemplateStore;
+    CreatureTemplateContainer _npcOutfitTemplateStore;
     CreatureCustomIDsContainer _creatureCustomIDsStore;
     std::vector<CreatureTemplate*> _creatureTemplateStoreFast; // pussywizard
     CreatureModelContainer _creatureModelStore;

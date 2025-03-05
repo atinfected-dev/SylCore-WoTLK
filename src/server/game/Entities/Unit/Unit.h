@@ -1,6 +1,9 @@
 /*
- * This file is part of the AzerothCore Project. See AUTHORS file for Copyright information
+ * This file is part of the SylCore Project. See AUTHORS file for Copyright information
  *
+ * Copyright (C) 2016-2025 AzerothCore <www.azerothcore.org>
+ * Copyright (C) 2025 SylCore
+ * 
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
  * Free Software Foundation; either version 3 of the License, or (at your
@@ -812,6 +815,9 @@ public:
 
     // Gender methods
     [[nodiscard]] uint8 getGender() const { return GetByteValue(UNIT_FIELD_BYTES_0, 2); }
+
+    // Class method.
+    [[nodiscard]] inline uint8 GetClass() const { return getClass(); }
 
     // Factions methods
     [[nodiscard]] uint32 GetFaction() const { return GetUInt32Value(UNIT_FIELD_FACTIONTEMPLATE); }
