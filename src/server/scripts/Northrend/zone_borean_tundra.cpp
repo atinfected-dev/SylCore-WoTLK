@@ -1,5 +1,5 @@
 /*
- * This file is part of the AzerothCore Project. See AUTHORS file for Copyright information
+ * This file is part of the SylCore Project. See AUTHORS file for Copyright information
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
@@ -2033,8 +2033,61 @@ public:
     }
 };
 
+/*######
+* SylCore Fix
+* Author: Sylian
+## Upper + Lower teleports for Naxxanar
+######*/
+
+// Holds the IDs needed for our Naxxanar Teleports.
+enum Naxxanar_Teleports {
+    SPELL_NAXXANAR_LOWER = 46447,
+    SPELL_NAXXANAR_UPPER = 46448,
+    QUEST_LAST_RITES = 12019,     
+};
+
+class at_naxxanar_teleports : public AreaTriggerScript
+{
+public:
+    at_naxxanar_teleports() : AreaTriggerScript("at_naxxanar_teleports") { }
+
+    bool OnTrigger(Player* player, AreaTrigger const* trigger) override
+    {
+        // Check if player is null or trigger is null.
+        if (!player || !trigger)
+            return false;
+
+        // Check if the player has completed the required quest (Last Rites)
+        if (!player->IsQuestRewarded(QUEST_LAST_RITES)) {
+            // Tell the player using Area trigger message that they are missing a requirement.
+            player->GetSession()->SendAreaTriggerMessage("|cffff0000You must complete 'Last Rites' before using this portal.|r");
+            return false;
+        }
+            
+
+        // Handle area triggers.
+        switch (trigger->entry)
+        {
+        case 5338: // From Upper to Lower.
+            player->CastSpell(player, SPELL_NAXXANAR_LOWER);
+            return true;
+
+        case 5334: // From Lower to Upper.
+            player->CastSpell(player, SPELL_NAXXANAR_UPPER);
+            return true;
+
+        default:
+            return false;
+        }
+    }
+};
+
+
 void AddSC_borean_tundra()
 {
+    // Sylcore Fixes
+    new at_naxxanar_teleports();
+
     // Ours
     RegisterSpellScript(spell_q11919_q11940_drake_hunt_aura);
     new npc_thassarian();

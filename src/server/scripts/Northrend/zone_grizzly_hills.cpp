@@ -534,6 +534,7 @@ enum Skirmisher
     WOUNDED_MOVE_3              = 274632
 };
 
+// Fixed by Sylian (SylCore)
 struct npc_wounded_skirmisher : public CreatureAI
 {
 public:
@@ -544,7 +545,7 @@ public:
 
     void Initialize()
     {
-        me->SetReactState(REACT_DEFENSIVE);
+        me->SetReactState(REACT_AGGRESSIVE);
     }
 
     void Reset() override
