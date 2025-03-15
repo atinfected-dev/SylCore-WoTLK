@@ -50,8 +50,8 @@ INSERT INTO `creature` (`guid`, `id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, 
 -- Northend
 
 -- Adding the spell_target_positions.
-INSERT INTO `spell_target_position` (`ID`, `EffectIndex`, `MapID`, `PositionX`, `PositionY`, `PositionZ`, `Orientation`, `VerifiedBuild`) VALUES (46448, 0, 571, 3782.1125, 3558.9978, 473.32175, 2.9065022, 0); ---> From lower to upper. 
-INSERT INTO `spell_target_position` (`ID`, `EffectIndex`, `MapID`, `PositionX`, `PositionY`, `PositionZ`, `Orientation`, `VerifiedBuild`) VALUES (46447, 0, 571, 3733.002, 3563.1372, 290.81595, 3.7939076, 0); --> From upper to lower.
+INSERT INTO `spell_target_position` (`ID`, `EffectIndex`, `MapID`, `PositionX`, `PositionY`, `PositionZ`, `Orientation`, `VerifiedBuild`) VALUES (46448, 0, 571, 3782.1125, 3558.9978, 473.32175, 2.9065022, 0);
+INSERT INTO `spell_target_position` (`ID`, `EffectIndex`, `MapID`, `PositionX`, `PositionY`, `PositionZ`, `Orientation`, `VerifiedBuild`) VALUES (46447, 0, 571, 3733.002, 3563.1372, 290.81595, 3.7939076, 0);
 
 -- Update to use the areaTrigger script.
 UPDATE `areatrigger_scripts` SET `ScriptName`='at_naxxanar_teleports' WHERE `entry`=5334;
