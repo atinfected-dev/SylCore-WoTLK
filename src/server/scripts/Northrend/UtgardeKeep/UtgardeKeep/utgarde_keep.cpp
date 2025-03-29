@@ -104,6 +104,31 @@ struct npc_enslaved_proto_drake : public ScriptedAI
 {
     npc_enslaved_proto_drake(Creature* creature) : ScriptedAI(creature)
     {
+        // The switch statement below fixes an issue where proto-drakes had the wrong rider.
+        // This might seem like an overreaction, but the alternative would be creating an entirely new creature just to fix a single proto-drake.
+        // This approach is likely the better option.
+        /*--------------------------------------------*/
+        switch (creature->GetSpawnId())
+        {
+        case 125948:
+            creature->RemoveVehicleKit();
+            break;
+        case 125949:
+            creature->RemoveVehicleKit();
+            break;
+        case 125950:
+            creature->RemoveVehicleKit();
+            break;
+        case 125951:
+            creature->RemoveVehicleKit();
+            break;
+        case 125953:
+            creature->RemoveVehicleKit();
+            break;
+        default:
+            break;
+        }
+        /*--------------------------------------------*/
         _setData = false;
     }
 
@@ -117,6 +142,7 @@ struct npc_enslaved_proto_drake : public ScriptedAI
 
     void MovementInform(uint32 type, uint32 id) override
     {
+        // Happens to the drake after landing at the last waypoint.
         if (type == WAYPOINT_MOTION_TYPE && id == POINT_LAST)
         {
             me->SetHomePosition(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), 0.25f);
@@ -134,12 +160,17 @@ struct npc_enslaved_proto_drake : public ScriptedAI
 
     void SetData(uint32 type, uint32 data) override
     {
+
+        // Connected to the Area trigger for the protodrake to start flying over.
         if (type == TYPE_PROTODRAKE_AT && data == DATA_PROTODRAKE_MOVE && !_setData && me->IsAlive() && me->GetDistance(protodrakeCheckPos) < 10.0f)
         {
+            LOG_ERROR("ses", std::to_string(me->GetSpawnId()));
             _setData = true;
-            me->SetCanFly(true);
-            me->SetDisableGravity(true);
-            me->GetMotionMaster()->MovePath(PATH_PROTODRAKE, false);
+            // This is the fix for the Proto-Drake at the end of the instance.
+            //me->SetCanFly(true);
+            //me->SetDisableGravity(true);
+            //me->GetMotionMaster()->MovePath(PATH_PROTODRAKE, false);
+           
         }
     }
 
