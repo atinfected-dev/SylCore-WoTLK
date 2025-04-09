@@ -1,4 +1,4 @@
--- DB update 2025_03_05_00 -> 2025_03_14_00
+-- DB update 2025_03_14_00 -> 2025_04_09_00
 -- SylCore Copyright 2025
 
 -- Remove Dragonflayer Deathseeker on normal.
@@ -59,9 +59,7 @@ INSERT INTO `creature` (`guid`, `id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, 
 -- Deleting the entry in creature with guid of "126250" also removing the linked_respawn.
 DELETE FROM `creature` WHERE (`id1` = 28368) AND (`guid` IN (126250));
 DELETE FROM `acore_world`.`linked_respawn` WHERE `guid`=126250 AND `linkType`=0;
-
---UPDATE `creature_template` SET `VehicleId` = 0 WHERE (`entry` = 24083);
-		
+	
 UPDATE `creature_template_movement` SET `Flight` = 0 WHERE (`CreatureId` = 24083);
 UPDATE `creature_template_movement` SET `Flight` = 0 WHERE (`CreatureId` = 31669);
 UPDATE `vehicle_template_accessory` SET `accessory_entry`=24849, `seat_id`=0, `minion`=0, `description`='Proto-Drake Rider', `summontype`=6, `summontimer`=120000 WHERE `entry`=24083 AND `seat_id`=0;
